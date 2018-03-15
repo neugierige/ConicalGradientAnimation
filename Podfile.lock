@@ -1,0 +1,12 @@
+PODS:
+  - AEConicalGradient (2.1.0)
+
+DEPENDENCIES:
+  - AEConicalGradient
+
+SPEC CHECKSUMS:
+  AEConicalGradient: cb075a2be710fddd903080c0b0f6b385aa004c93
+
+PODFILE CHECKSUM: d95f787cb8d159e5f95be59239307fb8e7870718
+
+COCOAPODS: 1.4.0
