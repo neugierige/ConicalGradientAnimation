@@ -12,9 +12,12 @@
 		99B17B0D20585A1C00ECCEBE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99B17B0B20585A1C00ECCEBE /* Main.storyboard */; };
 		99B17B0F20585A1C00ECCEBE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99B17B0E20585A1C00ECCEBE /* Assets.xcassets */; };
 		99B17B1220585A1C00ECCEBE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99B17B1020585A1C00ECCEBE /* LaunchScreen.storyboard */; };
+		AE14691CAFA01E5539A06DE4 /* Pods_AnimatingGradient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE9B577D0C909D3BA34291DE /* Pods_AnimatingGradient.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		45CA709F18253C85B2859086 /* Pods-AnimatingGradient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnimatingGradient.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AnimatingGradient/Pods-AnimatingGradient.debug.xcconfig"; sourceTree = "<group>"; };
+		5EF338147D190AAE4B15010D /* Pods-AnimatingGradient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnimatingGradient.release.xcconfig"; path = "Pods/Target Support Files/Pods-AnimatingGradient/Pods-AnimatingGradient.release.xcconfig"; sourceTree = "<group>"; };
 		99B17B0420585A1C00ECCEBE /* AnimatingGradient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnimatingGradient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99B17B0720585A1C00ECCEBE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		99B17B0920585A1C00ECCEBE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +25,7 @@
 		99B17B0E20585A1C00ECCEBE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		99B17B1120585A1C00ECCEBE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		99B17B1320585A1C00ECCEBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE9B577D0C909D3BA34291DE /* Pods_AnimatingGradient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AnimatingGradient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +33,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE14691CAFA01E5539A06DE4 /* Pods_AnimatingGradient.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		56EF7ABF4CC23F74D28A8A5D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CE9B577D0C909D3BA34291DE /* Pods_AnimatingGradient.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		883A36A184C1F59CD54EF0DC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				45CA709F18253C85B2859086 /* Pods-AnimatingGradient.debug.xcconfig */,
+				5EF338147D190AAE4B15010D /* Pods-AnimatingGradient.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		99B17AFB20585A1C00ECCEBE = {
 			isa = PBXGroup;
 			children = (
 				99B17B0620585A1C00ECCEBE /* AnimatingGradient */,
 				99B17B0520585A1C00ECCEBE /* Products */,
+				883A36A184C1F59CD54EF0DC /* Pods */,
+				56EF7ABF4CC23F74D28A8A5D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,9 +95,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 99B17B1620585A1C00ECCEBE /* Build configuration list for PBXNativeTarget "AnimatingGradient" */;
 			buildPhases = (
+				DDFA4C9D3768C9D7192A2540 /* [CP] Check Pods Manifest.lock */,
 				99B17B0020585A1C00ECCEBE /* Sources */,
 				99B17B0120585A1C00ECCEBE /* Frameworks */,
 				99B17B0220585A1C00ECCEBE /* Resources */,
+				FF16763DC3D36BE32105034E /* [CP] Embed Pods Frameworks */,
+				7D7C4016159D3163B0C2A554 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -130,6 +157,60 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7D7C4016159D3163B0C2A554 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AnimatingGradient/Pods-AnimatingGradient-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DDFA4C9D3768C9D7192A2540 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AnimatingGradient-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FF16763DC3D36BE32105034E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-AnimatingGradient/Pods-AnimatingGradient-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AEConicalGradient/AEConicalGradient.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AEConicalGradient.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AnimatingGradient/Pods-AnimatingGradient-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		99B17B0020585A1C00ECCEBE /* Sources */ = {
@@ -272,6 +353,7 @@
 		};
 		99B17B1720585A1C00ECCEBE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 45CA709F18253C85B2859086 /* Pods-AnimatingGradient.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -287,6 +369,7 @@
 		};
 		99B17B1820585A1C00ECCEBE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5EF338147D190AAE4B15010D /* Pods-AnimatingGradient.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
