@@ -101,29 +101,26 @@ class ViewController: UIViewController {
     func setupStrokeEndCap() {
         strokeEndCapView.frame = CGRect(x: 0, y: 0, width: strokeWidth/2, height: strokeWidth/2)
         strokeEndCapView.backgroundColor = .lightGray
-        view.addSubview(strokeEndCapView)
+//        view.addSubview(strokeEndCapView)
 
-//        let circleRadius = strokeWidth/2
-//
-//        let strokeEndCap = UIView(frame: CGRect(x: gradientView.frame.midX - circleRadius/2, y: gradientView.frame.minY, width: circleRadius/2, height: circleRadius))
-//        strokeEndCap.backgroundColor = .green
-//
-//        let maskLayer = CAShapeLayer()
-//        maskLayer.path = UIBezierPath(roundedRect: strokeEndCap.frame, byRoundingCorners: [.topRight, .bottomRight], cornerRadii: CGSize(width: strokeEndCap.frame.width, height: strokeEndCap.frame.width)).cgPath
-//        strokeEndCap.layer.addSublayer(maskLayer)
-//        view.addSubview(strokeEndCap)
+        let BIG_WIDTH: CGFloat = 300
+        let invertedSemiCircle = UIView(frame: CGRect(x: 50, y: 200, width: BIG_WIDTH/2, height: BIG_WIDTH))
+        invertedSemiCircle.backgroundColor = UIColor.orange
+        view.addSubview(invertedSemiCircle)
 
-//        let strokeEndCapPath = UIBezierPath(
-//            arcCenter: CGPoint(x: gradientView.frame.midX - strokeWidth - strokeWidth/4, y: gradientView.frame.minY - strokeWidth - circleRadius*3/2),
-//            radius: circleRadius/2,
-//            startAngle: CGFloat(Double.pi * 7/2),
-//            endAngle: CGFloat(Double.pi * 5/2),
-//            clockwise: true)
-//        strokeEndCapLayer.path = strokeEndCapPath.cgPath
-//        strokeEndCapLayer.strokeColor = UIColor.green.cgColor
-//        strokeEndCapLayer.fillColor = UIColor.green.cgColor
+        let semiCircleMaskLayer = CAShapeLayer()
+        let semiCirclePath = UIBezierPath(
+            arcCenter: CGPoint(x: invertedSemiCircle.bounds.minX, y: invertedSemiCircle.bounds.midY),
+            radius: BIG_WIDTH/2,
+            startAngle: CGFloat(Double.pi * 3/2),
+            endAngle: CGFloat(Double.pi * 5/2),
+            clockwise: true)
+        semiCirclePath.append(UIBezierPath(rect: invertedSemiCircle.bounds))
+        semiCircleMaskLayer.fillRule = kCAFillRuleEvenOdd
 
-//        animationView.layer.addSublayer(strokeEndCapLayer)
+        semiCircleMaskLayer.path = semiCirclePath.cgPath
+        invertedSemiCircle.layer.mask = semiCircleMaskLayer
+//        invertedSemiCircle.layer.addSublayer(semiCircleMaskLayer)
     }
 
     func animateGradientView() {
