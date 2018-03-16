@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     let strokeEndCapLayer = CAShapeLayer()
 
     let grayscaleColors: [UIColor] = [.white, .white, .white, .white, .lightGray, .gray, .darkGray, .black, .black]
-    let backgroundColor = UIColor.blue
+    let backgroundColor = UIColor(red: 10/255, green: 189/255, blue: 227/255, alpha: 1.0)
 
     let viewWidth: CGFloat = 250
     let strokeWidth: CGFloat = 50
@@ -36,7 +36,6 @@ class ViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        animateGradientView()
     }
 
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
@@ -60,7 +59,7 @@ class ViewController: UIViewController {
             clockwise: true)
         gradientView.gradient.path = strokePath.cgPath
         gradientView.gradient.lineWidth = strokeWidth
-        gradientView.gradient.fillColor = UIColor.green.cgColor // TODO: change to backgroundColor.cgColor
+        gradientView.gradient.fillColor = backgroundColor.cgColor // TODO: change to backgroundColor.cgColor
         gradientView.gradient.strokeColor = UIColor.clear.cgColor
         gradientView.gradient.strokeEnd = 1.0
     }
@@ -84,7 +83,7 @@ class ViewController: UIViewController {
         strokeCoverLayer.lineWidth = strokeWidth/2
         strokeCoverLayer.lineCap = kCALineCapButt
         strokeCoverLayer.fillColor = UIColor.clear.cgColor
-        strokeCoverLayer.strokeColor = UIColor.red.cgColor // TODO: change to backgroundColor.cgColor
+        strokeCoverLayer.strokeColor = backgroundColor.cgColor // TODO: change to backgroundColor.cgColor
 
         gradientCoverView.layer.addSublayer(strokeCoverLayer)
     }
