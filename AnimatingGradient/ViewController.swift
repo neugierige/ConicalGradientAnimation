@@ -23,6 +23,7 @@ class ViewController: UIViewController {
 
     let viewWidth: CGFloat = 250
     let strokeWidth: CGFloat = 50
+    let percentageToFill: CGFloat = 0.75
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,12 +36,12 @@ class ViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        animateGradientView()
+//        animateGradientView()
     }
 
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            animateGradientView()
+            animateGradientView(duration: 8.0)
         }
     }
 
@@ -99,7 +100,7 @@ class ViewController: UIViewController {
     }
 
     func setupStrokeEndCap() {
-        strokeEndCapView.frame = CGRect(x: 100, y: 100, width: strokeWidth/4, height: strokeWidth/2)
+        strokeEndCapView.frame = CGRect(x: gradientView.frame.midX, y: gradientView.frame.minY, width: strokeWidth/4, height: strokeWidth/2)
         strokeEndCapView.backgroundColor = .lightGray
         view.addSubview(strokeEndCapView)
 
@@ -117,13 +118,14 @@ class ViewController: UIViewController {
         strokeEndCapView.layer.mask = semiCircleMaskLayer
     }
 
-    func animateGradientView() {
+    func animateGradientView(duration: CFTimeInterval) {
         CATransaction.begin()
+
         let uncoverAnimation = CABasicAnimation(keyPath: "strokeEnd")
-        uncoverAnimation.duration = 8.0
+        uncoverAnimation.duration = duration
         uncoverAnimation.fromValue = 1.0
-        uncoverAnimation.toValue = 0.25
-        strokeCoverLayer.strokeEnd = 0.25
+        uncoverAnimation.toValue = 1 - percentageToFill
+        strokeCoverLayer.strokeEnd = 1 - percentageToFill
         uncoverAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
         strokeCoverLayer.add(uncoverAnimation, forKey: "show gradient")
 
@@ -132,12 +134,14 @@ class ViewController: UIViewController {
             arcCenter: gradientView.center,
             radius: (gradientView.frame.size.width) / 2,
             startAngle: .pi * 3/2,
-            endAngle: .pi * 6/2,
+            endAngle: .pi * 3/2 + .pi * 6 * (1-percentageToFill),
             clockwise: true)
         orbitAnimation.path = circlePath.cgPath
-        orbitAnimation.duration = 8.0
+        orbitAnimation.duration = duration
         orbitAnimation.repeatCount = 0
         orbitAnimation.timingFunction = uncoverAnimation.timingFunction
+        orbitAnimation.rotationMode = kCAAnimationRotateAuto
+        strokeEndCapView.layer.position = CGPoint(x: 100, y: 300) // TODO: figure out what this position is
         strokeEndCapView.layer.add(orbitAnimation, forKey: "orbit")
 
         CATransaction.commit()
