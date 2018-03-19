@@ -44,6 +44,8 @@ class AnimatingGradientCircle: UIView {
     }
 
     func animateGradientView(duration: CFTimeInterval, percentageToFill: CGFloat) {
+        let verifiedPercentage = percentageToFill > 1 ? 1.0 : percentageToFill
+
         CATransaction.begin()
         strokeStartCapView.backgroundColor = gradientColors.first
 
@@ -51,15 +53,15 @@ class AnimatingGradientCircle: UIView {
         uncoverAnimation.duration = duration
         uncoverAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
         uncoverAnimation.fromValue = 1.0
-        uncoverAnimation.toValue = 1 - percentageToFill
-        gradientCoverLayer.strokeEnd = 1 - percentageToFill
+        uncoverAnimation.toValue = 1 - verifiedPercentage
+        gradientCoverLayer.strokeEnd = 1 - verifiedPercentage
         gradientCoverLayer.add(uncoverAnimation, forKey: "uncover gradient")
 
         let zRotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
         zRotationAnimation.duration = duration
         zRotationAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
         zRotationAnimation.fromValue = 0
-        zRotationAnimation.toValue = fullCircle * percentageToFill
+        zRotationAnimation.toValue = fullCircle * verifiedPercentage
         zRotationAnimation.isRemovedOnCompletion = false
         zRotationAnimation.fillMode = kCAFillModeForwards
         rotationArm.layer.add(zRotationAnimation, forKey: "z rotation")
