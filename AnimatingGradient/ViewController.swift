@@ -15,8 +15,8 @@ class ViewController: UIViewController {
     let gradientView = ConicalGradientView()
     var gradientCoverView = UIView()
     let strokeCoverLayer = CAShapeLayer()
-    let strokeEndCapView = UIView()
-    let strokeEndCapLayer = CAShapeLayer()
+    let strokeStartCap = UIView()
+    let rotationArm = UIView()
 
     let grayscaleColors: [UIColor] = [.white, .white, .white, .white, .lightGray, .gray, .darkGray, .black, .black]
     let backgroundColor = UIColor(red: 10/255, green: 189/255, blue: 227/255, alpha: 1.0)
@@ -31,7 +31,7 @@ class ViewController: UIViewController {
         setupGradientView(gradientView)
         setupGradientCoverView(gradientCoverView)
         setupStrokeStartCap()
-        setupStrokeEndCap()
+
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -89,59 +89,66 @@ class ViewController: UIViewController {
     }
 
     func setupStrokeStartCap() {
-        let circleRadius = strokeWidth/2
-
-        // TODO: would look better as a semicircle
-        let strokeStartCap = UIView(frame: CGRect(x: gradientView.frame.midX - circleRadius/2, y: gradientView.frame.minY, width: circleRadius, height: circleRadius))
-        strokeStartCap.layer.cornerRadius = circleRadius/2
-        strokeStartCap.backgroundColor = grayscaleColors.first
+        strokeStartCap.frame = CGRect(x: gradientView.frame.midX - strokeWidth/4 + 3, y: gradientView.frame.minY, width: strokeWidth/4, height: strokeWidth/2)
         view.addSubview(strokeStartCap)
-    }
-
-    func setupStrokeEndCap() {
-        strokeEndCapView.frame = CGRect(x: gradientView.frame.midX, y: gradientView.frame.minY, width: strokeWidth/4, height: strokeWidth/2)
-        strokeEndCapView.backgroundColor = .lightGray
-        view.addSubview(strokeEndCapView)
+        view.bringSubview(toFront: strokeStartCap)
 
         let semiCircleMaskLayer = CAShapeLayer()
         let semiCirclePath = UIBezierPath(
-            arcCenter: CGPoint(x: strokeEndCapView.bounds.minX, y: strokeEndCapView.bounds.midY),
+            arcCenter: CGPoint(x: strokeStartCap.bounds.maxX, y: strokeStartCap.bounds.midY),
+            radius: strokeWidth/4,
+            startAngle: CGFloat(Double.pi * 3/2),
+            endAngle: CGFloat(Double.pi * 5/2),
+            clockwise: false)
+        semiCircleMaskLayer.path = semiCirclePath.cgPath
+        strokeStartCap.layer.mask = semiCircleMaskLayer
+    }
+
+    func setupRotationArm() {
+        rotationArm.frame = CGRect(x: gradientView.frame.midX, y: gradientView.frame.minY, width: 0.1, height: gradientView.frame.width)
+        view.addSubview(rotationArm)
+
+        let invertedHalfCircleMaskLayer = CAShapeLayer()
+        let invertedHalfCirclePathFrame = CGRect(x: -strokeWidth/4, y: 0, width: strokeWidth/4, height: strokeWidth/2)
+
+        let invertedHalfCirclePath = UIBezierPath()
+        invertedHalfCirclePath.move(to: CGPoint(x: invertedHalfCirclePathFrame.minX, y: invertedHalfCirclePathFrame.minY))
+        invertedHalfCirclePath.addArc(
+            withCenter: CGPoint(x: invertedHalfCirclePathFrame.minX, y: invertedHalfCirclePathFrame.midY),
             radius: strokeWidth/4,
             startAngle: CGFloat(Double.pi * 3/2),
             endAngle: CGFloat(Double.pi * 5/2),
             clockwise: true)
-        semiCirclePath.append(UIBezierPath(rect: strokeEndCapView.bounds))
-        semiCircleMaskLayer.fillRule = kCAFillRuleEvenOdd
+        invertedHalfCirclePath.addLine(to: CGPoint(x: invertedHalfCirclePathFrame.maxX, y: invertedHalfCirclePathFrame.maxY))
+        invertedHalfCirclePath.addLine(to: CGPoint(x: invertedHalfCirclePathFrame.maxX, y: invertedHalfCirclePathFrame.minY))
+        invertedHalfCirclePath.close()
+        invertedHalfCircleMaskLayer.fillColor = outsideColor.cgColor
 
-        semiCircleMaskLayer.path = semiCirclePath.cgPath
-        strokeEndCapView.layer.mask = semiCircleMaskLayer
+        invertedHalfCircleMaskLayer.path = invertedHalfCirclePath.cgPath
+        rotationArm.layer.addSublayer(invertedHalfCircleMaskLayer)
     }
 
     func animateGradientView(duration: CFTimeInterval) {
         CATransaction.begin()
 
+        strokeStartCap.backgroundColor = gradientColors.first
+
         let uncoverAnimation = CABasicAnimation(keyPath: "strokeEnd")
         uncoverAnimation.duration = duration
+        uncoverAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
         uncoverAnimation.fromValue = 1.0
         uncoverAnimation.toValue = 1 - percentageToFill
         strokeCoverLayer.strokeEnd = 1 - percentageToFill
-        uncoverAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
         strokeCoverLayer.add(uncoverAnimation, forKey: "show gradient")
 
-        let orbitAnimation = CAKeyframeAnimation(keyPath: "position")
-        let circlePath = UIBezierPath(
-            arcCenter: gradientView.center,
-            radius: (gradientView.frame.size.width) / 2,
-            startAngle: .pi * 3/2,
-            endAngle: .pi * 3/2 + .pi * 6 * (1-percentageToFill),
-            clockwise: true)
-        orbitAnimation.path = circlePath.cgPath
-        orbitAnimation.duration = duration
-        orbitAnimation.repeatCount = 0
-        orbitAnimation.timingFunction = uncoverAnimation.timingFunction
-        orbitAnimation.rotationMode = kCAAnimationRotateAuto
-        strokeEndCapView.layer.position = CGPoint(x: 100, y: 300) // TODO: figure out what this position is
-        strokeEndCapView.layer.add(orbitAnimation, forKey: "orbit")
+        let zRotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+        zRotationAnimation.duration = duration
+        zRotationAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+        zRotationAnimation.fromValue = 0
+        zRotationAnimation.toValue = .pi * (2 * (percentageToFill))
+        zRotationAnimation.isRemovedOnCompletion = false
+        zRotationAnimation.fillMode = kCAFillModeForwards
+        rotationArm.layer.add(zRotationAnimation, forKey:nil)
 
         CATransaction.commit()
     }
