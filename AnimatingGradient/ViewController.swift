@@ -18,20 +18,20 @@ class ViewController: UIViewController {
     let strokeStartCap = UIView()
     let rotationArm = UIView()
 
-    let grayscaleColors: [UIColor] = [.white, .white, .white, .white, .lightGray, .gray, .darkGray, .black, .black]
-    let backgroundColor = UIColor(red: 10/255, green: 189/255, blue: 227/255, alpha: 1.0)
+    let gradientColors: [UIColor] = [.white, .white, .white, .white, .lightGray, .gray, .darkGray, .black]
+    let outsideColor = UIColor(red: 10/255, green: 189/255, blue: 227/255, alpha: 1.0)
 
     let viewWidth: CGFloat = 250
     let strokeWidth: CGFloat = 50
-    let percentageToFill: CGFloat = 0.75
+    let percentageToFill: CGFloat = 1.0
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = backgroundColor
+        view.backgroundColor = outsideColor
         setupGradientView(gradientView)
         setupGradientCoverView(gradientCoverView)
         setupStrokeStartCap()
-
+        setupRotationArm()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -40,13 +40,13 @@ class ViewController: UIViewController {
 
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            animateGradientView(duration: 8.0)
+            animateGradientView(duration: 5.0)
         }
     }
 
     func setupGradientView(_ gradientView: ConicalGradientView) {
         gradientView.frame = CGRect(x: view.frame.midX - viewWidth/2, y: 100, width: viewWidth, height: viewWidth)
-        gradientView.gradient.colors = grayscaleColors
+        gradientView.gradient.colors = gradientColors
         let mask = circleMaskLayer(for: gradientView)
         gradientView.layer.mask = mask
         view.addSubview(gradientView)
@@ -59,7 +59,7 @@ class ViewController: UIViewController {
             clockwise: true)
         gradientView.gradient.path = strokePath.cgPath
         gradientView.gradient.lineWidth = strokeWidth
-        gradientView.gradient.fillColor = backgroundColor.cgColor // TODO: change to backgroundColor.cgColor
+        gradientView.gradient.fillColor = outsideColor.cgColor
         gradientView.gradient.strokeColor = UIColor.clear.cgColor
         gradientView.gradient.strokeEnd = 1.0
     }
@@ -83,7 +83,7 @@ class ViewController: UIViewController {
         strokeCoverLayer.lineWidth = strokeWidth/2
         strokeCoverLayer.lineCap = kCALineCapButt
         strokeCoverLayer.fillColor = UIColor.clear.cgColor
-        strokeCoverLayer.strokeColor = backgroundColor.cgColor // TODO: change to backgroundColor.cgColor
+        strokeCoverLayer.strokeColor = outsideColor.cgColor
 
         gradientCoverView.layer.addSublayer(strokeCoverLayer)
     }
