@@ -12,6 +12,7 @@
 		99B17B0D20585A1C00ECCEBE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99B17B0B20585A1C00ECCEBE /* Main.storyboard */; };
 		99B17B0F20585A1C00ECCEBE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99B17B0E20585A1C00ECCEBE /* Assets.xcassets */; };
 		99B17B1220585A1C00ECCEBE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99B17B1020585A1C00ECCEBE /* LaunchScreen.storyboard */; };
+		99D14A5120600DFD00E0965D /* AnimatingGradientCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D14A5020600DFD00E0965D /* AnimatingGradientCircle.swift */; };
 		AE14691CAFA01E5539A06DE4 /* Pods_AnimatingGradient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE9B577D0C909D3BA34291DE /* Pods_AnimatingGradient.framework */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +26,7 @@
 		99B17B0E20585A1C00ECCEBE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		99B17B1120585A1C00ECCEBE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		99B17B1320585A1C00ECCEBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		99D14A5020600DFD00E0965D /* AnimatingGradientCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatingGradientCircle.swift; sourceTree = "<group>"; };
 		CE9B577D0C909D3BA34291DE /* Pods_AnimatingGradient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AnimatingGradient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -80,6 +82,7 @@
 			children = (
 				99B17B0720585A1C00ECCEBE /* AppDelegate.swift */,
 				99B17B0920585A1C00ECCEBE /* ViewController.swift */,
+				99D14A5020600DFD00E0965D /* AnimatingGradientCircle.swift */,
 				99B17B0B20585A1C00ECCEBE /* Main.storyboard */,
 				99B17B0E20585A1C00ECCEBE /* Assets.xcassets */,
 				99B17B1020585A1C00ECCEBE /* LaunchScreen.storyboard */,
@@ -218,6 +221,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				99B17B0A20585A1C00ECCEBE /* ViewController.swift in Sources */,
+				99D14A5120600DFD00E0965D /* AnimatingGradientCircle.swift in Sources */,
 				99B17B0820585A1C00ECCEBE /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
