@@ -10,7 +10,6 @@ import UIKit
 import AEConicalGradient
 
 class AnimatingGradientCircle: UIView {
-
     private let gradientView = ConicalGradientView()
     private let gradientCoverView = UIView()
     private let gradientCoverLayer = CAShapeLayer()
@@ -26,26 +25,39 @@ class AnimatingGradientCircle: UIView {
     private let endAngle = CGFloat(Double.pi * 7/2)
     private let fullCircle = CGFloat(Double.pi * 2)
 
-    init(frame: CGRect, gradientColors: [UIColor], outsideColor: UIColor, strokeWidth: CGFloat) {
+    init(xPosition: CGFloat, yPosition: CGFloat, width: CGFloat, gradientColors: [UIColor], outsideColor: UIColor, strokeWidth: CGFloat) {
         self.gradientColors = gradientColors
         self.outsideColor = outsideColor
         self.strokeWidth = strokeWidth
+        let frame = CGRect(x: xPosition, y: yPosition, width: width, height: width)
         super.init(frame: frame)
-        self.frame = CGRect(x: frame.minX, y: frame.minY, width: frame.width, height: frame.width)
 
-        setupGradientView()
-        setupGradientCoverView()
-        setupRotationArm()
-        setupStrokeStartCap()
+        addAllSubviews()
+    }
+
+    override private init(frame: CGRect) {
+        fatalError("use custom initializer instead")
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func animateGradientView(duration: CFTimeInterval, percentageToFill: CGFloat) {
-        let verifiedPercentage = percentageToFill > 1 ? 1.0 : percentageToFill
+    func addAllSubviews() {
+        addSubview(gradientView)
+        addSubview(gradientCoverView)
+        addSubview(rotationArm)
+        addSubview(strokeStartCapView)
+        bringSubview(toFront: strokeStartCapView)
+    }
 
+    func removeAllSubViews() {
+        subviews.forEach {
+            $0.removeFromSuperview()
+        }
+    }
+
+    func animateGradientView(duration: CFTimeInterval, percentageToFill: CGFloat) {
         CATransaction.begin()
         strokeStartCapView.backgroundColor = gradientColors.first
 
@@ -53,15 +65,15 @@ class AnimatingGradientCircle: UIView {
         uncoverAnimation.duration = duration
         uncoverAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
         uncoverAnimation.fromValue = 1.0
-        uncoverAnimation.toValue = 1 - verifiedPercentage
-        gradientCoverLayer.strokeEnd = 1 - verifiedPercentage
+        uncoverAnimation.toValue = 1 - percentageToFill
+        gradientCoverLayer.strokeEnd = 1 - percentageToFill
         gradientCoverLayer.add(uncoverAnimation, forKey: "uncover gradient")
 
         let zRotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
         zRotationAnimation.duration = duration
         zRotationAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
         zRotationAnimation.fromValue = 0
-        zRotationAnimation.toValue = fullCircle * verifiedPercentage
+        zRotationAnimation.toValue = fullCircle * percentageToFill
         zRotationAnimation.isRemovedOnCompletion = false
         zRotationAnimation.fillMode = kCAFillModeForwards
         rotationArm.layer.add(zRotationAnimation, forKey: "z rotation")
@@ -69,18 +81,27 @@ class AnimatingGradientCircle: UIView {
         CATransaction.commit()
     }
 
-    func clearLayers() {
-        layer.sublayers?.forEach {
-            $0.removeFromSuperlayer()
-        }
+    override func layoutSubviews() {
+        gradientView.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.width)
+        gradientCoverView.frame = gradientView.frame
+        gradientCoverView.center = gradientView.center
+        strokeStartCapView.frame = CGRect(x: gradientView.frame.midX - strokeWidth/4 + 1, y: gradientView.frame.minY, width: strokeWidth/4, height: strokeWidth/2)
+
+        // The sole purpose of the rotationArm view is to hold a layer, and for that layer to be animated.
+        // The view itself is invisible and should be as thin as possible, so as not to cause any distorting
+        // for the animation.
+        rotationArm.frame = CGRect(x: gradientView.frame.midX, y: gradientView.frame.minY, width: 0.1, height: gradientView.frame.width)
+
+        setupGradientView()
+        setupGradientCoverView()
+        setupRotationArm()
+        setupStrokeStartCap()
     }
 
     private func setupGradientView() {
-        gradientView.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.width)
         gradientView.gradient.colors = gradientColors
         let mask = circleMaskLayer(for: gradientView)
         gradientView.layer.mask = mask
-        addSubview(gradientView)
 
         let strokePath = UIBezierPath(
             arcCenter: CGPoint(x: gradientView.frame.size.width / 2.0, y: gradientView.frame.size.height / 2.0),
@@ -96,10 +117,6 @@ class AnimatingGradientCircle: UIView {
     }
 
     private func setupGradientCoverView() {
-        gradientCoverView.frame = gradientView.frame
-        gradientCoverView.center = gradientView.center
-        addSubview(gradientCoverView)
-
         let mask = circleMaskLayer(for: gradientCoverView)
         gradientCoverView.layer.mask = mask
 
@@ -119,9 +136,6 @@ class AnimatingGradientCircle: UIView {
     }
 
     private func setupRotationArm() {
-        rotationArm.frame = CGRect(x: gradientView.frame.midX, y: gradientView.frame.minY, width: 3, height: gradientView.frame.width)
-        addSubview(rotationArm)
-
         let invertedHalfCircleMaskLayer = CAShapeLayer()
         let invertedHalfCirclePathFrame = CGRect(x: -strokeWidth/4, y: 0, width: strokeWidth/4, height: strokeWidth/2)
 
@@ -146,10 +160,6 @@ class AnimatingGradientCircle: UIView {
     }
 
     private func setupStrokeStartCap() {
-        strokeStartCapView.frame = CGRect(x: gradientView.frame.midX - strokeWidth/4 + 3, y: gradientView.frame.minY, width: strokeWidth/4, height: strokeWidth/2)
-        addSubview(strokeStartCapView)
-        bringSubview(toFront: strokeStartCapView)
-
         let semiCircleMaskLayer = CAShapeLayer()
         let semiCirclePath = UIBezierPath(
             arcCenter: CGPoint(x: strokeStartCapView.bounds.maxX, y: strokeStartCapView.bounds.midY),
