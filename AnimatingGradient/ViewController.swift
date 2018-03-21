@@ -10,17 +10,27 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var animatingBarGraph: AnimatingBarGraphView!
     var animatingGradientCircle: AnimatingGradientCircle?
     let gradientColors: [UIColor] = [.white, .white, .white, .white, .lightGray, .gray, .darkGray, .black]
     let outsideColor = UIColor(red: 10/255, green: 189/255, blue: 227/255, alpha: 1.0)
 
-    let viewWidth: CGFloat = 300
-    let strokeWidth: CGFloat = 80
+    let viewWidth: CGFloat = 100
+    let strokeWidth: CGFloat = 20
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = outsideColor
-        let gradientCircleView = AnimatingGradientCircle(frame: CGRect(x: view.frame.width/2 - viewWidth/2, y: 100, width: viewWidth, height: viewWidth), gradientColors: gradientColors, outsideColor: outsideColor, strokeWidth: strokeWidth)
+
+        setupAnimatingBarGraph()
+    }
+
+    func setupAnimatingBarGraph() {
+        animatingBarGraph.setupGradientBars()
+    }
+
+    func setupGradientCircleView() {
+        let gradientCircleView = AnimatingGradientCircle(xPosition: view.frame.width/2 - viewWidth/2, yPosition: 100, width: viewWidth, gradientColors: gradientColors, outsideColor: outsideColor, strokeWidth: strokeWidth)
         animatingGradientCircle = gradientCircleView
         view.addSubview(gradientCircleView)
     }
