@@ -15,6 +15,7 @@ class AnimatingGradientBarView: UIView {
     let invertedSemiCircle = UIView()
 
     var outsideColor: UIColor!
+    var isAnimating = false
 
     // MARK: public API
     override init(frame: CGRect) {
@@ -29,8 +30,11 @@ class AnimatingGradientBarView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-//        setupGradient()
-//        setupGradientCover()
+        setupGradient()
+
+        if !isAnimating {
+            setupGradientCover()
+        }
     }
 
     func setOutsideColor(_ outsideColor: UIColor) {
@@ -41,19 +45,20 @@ class AnimatingGradientBarView: UIView {
     }
 
     func animate(duration: TimeInterval, percentage: Double) {
+        isAnimating = true
         gradientView.isHidden = false
-        print("cover.frame BEFORE: \(self.cover.frame)")
 
         let endYPosition = frame.height * (CGFloat(percentage) > 1 ? 1.0 : CGFloat(1 - percentage))
+        let currentRect = cover.frame
         UIView.animate(withDuration: duration, animations: {
             self.invertedSemiCircle.frame = CGRect(x: self.invertedSemiCircle.frame.minX,
                                                    y: endYPosition,
                                                    width: self.invertedSemiCircle.frame.width,
                                                    height: self.invertedSemiCircle.frame.height)
-            print("***cover.frame ANIMATE: \(self.cover.frame)")
             self.cover.frame = UIEdgeInsetsInsetRect(currentRect, UIEdgeInsets(top: 0, left: 0, bottom: currentRect.height - endYPosition, right: 0))
-        })
-        print("*******cover.frame AFTER: \(self.cover.frame)")
+        }) { _ in
+            self.isAnimating = false
+        }
     }
 
     // MARK: private API
@@ -66,8 +71,6 @@ class AnimatingGradientBarView: UIView {
 
     private func setupGradient() {
         gradientView.frame = bounds
-//        print("SETUP gradientView: \(self.gradientView.frame)")
-
         gradientView.configureColors(gradientColors: [UIColor.green, UIColor.yellow, UIColor.red])
         gradientView.startPoint = CGPoint(x: 0.5, y: 0.0)
         gradientView.endPoint = CGPoint(x: 0.5, y: 1.0)
@@ -82,14 +85,12 @@ class AnimatingGradientBarView: UIView {
 
         cover.frame = bounds
         cover.frame.size.height = bounds.size.height - arcRadius * 2
-        print("SETUP cover frame: \(self.cover.frame)")
 
         invertedSemiCircle.frame = CGRect(x: cover.bounds.minX, y: cover.bounds.maxY - buffer, width: cover.bounds.width, height: arcRadius + buffer)
 
-        cover.backgroundColor = UIColor.orange
+        cover.backgroundColor = outsideColor
+        invertedSemiCircle.backgroundColor = outsideColor
         bringSubview(toFront: cover)
-
-        invertedSemiCircle.backgroundColor = UIColor.blue
         bringSubview(toFront: invertedSemiCircle)
 
         let maskPath = UIBezierPath()
