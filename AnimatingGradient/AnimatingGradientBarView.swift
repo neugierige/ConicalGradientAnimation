@@ -30,8 +30,10 @@ class AnimatingGradientBarView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        setupGradient()
+        layer.cornerRadius = bounds.width/2
+        layer.masksToBounds = true
 
+        setupGradient()
         if !isAnimating {
             setupGradientCover()
         }
