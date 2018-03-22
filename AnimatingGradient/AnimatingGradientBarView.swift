@@ -51,10 +51,7 @@ class AnimatingGradientBarView: UIView {
                                                    width: self.invertedSemiCircle.frame.width,
                                                    height: self.invertedSemiCircle.frame.height)
             print("***cover.frame ANIMATE: \(self.cover.frame)")
-            self.cover.frame = CGRect(x: self.gradientView.frame.minX,
-                                      y: self.gradientView.frame.minY,
-                                      width: self.gradientView.frame.width,
-                                      height: endYPosition)
+            self.cover.frame = UIEdgeInsetsInsetRect(currentRect, UIEdgeInsets(top: 0, left: 0, bottom: currentRect.height - endYPosition, right: 0))
         })
         print("*******cover.frame AFTER: \(self.cover.frame)")
     }
