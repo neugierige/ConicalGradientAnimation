@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var animatingGradientBar: AnimatingGradientBarView!
     var animatingGradientCircle: AnimatingGradientCircle?
     let gradientColors: [UIColor] = [.white, .white, .white, .white, .lightGray, .gray, .darkGray, .black]
-    let outsideColor = UIColor.white
+    let outsideColor = UIColor.black
 
     let viewWidth: CGFloat = 100
     let strokeWidth: CGFloat = 20
