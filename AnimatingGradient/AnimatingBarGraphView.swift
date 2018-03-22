@@ -24,9 +24,6 @@ class AnimatingBarGraphView: UIView {
     @IBOutlet weak var matchupBar: AnimatingGradientBarView!
     @IBOutlet weak var recentPerfBar: AnimatingGradientBarView!
 
-    private var contentView: AnimatingBarGraphView?
-    var outsideColor: UIColor = UIColor.white
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()

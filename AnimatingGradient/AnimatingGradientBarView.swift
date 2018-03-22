@@ -39,7 +39,7 @@ class AnimatingGradientBarView: UIView {
 
     func setOutsideColor(_ outsideColor: UIColor) {
         self.outsideColor = outsideColor
-        backgroundColor = UIColor.white
+        backgroundColor = outsideColor
         setupGradient()
         setupGradientCover()
     }
