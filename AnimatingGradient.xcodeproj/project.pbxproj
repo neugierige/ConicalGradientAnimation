@@ -10,6 +10,7 @@
 		9913235A206156FE00AB1087 /* StandardGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99132359206156FE00AB1087 /* StandardGradientView.swift */; };
 		9913235E206179D900AB1087 /* AnimatingBarGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9913235D206179D900AB1087 /* AnimatingBarGraphView.swift */; };
 		9913236020618FF700AB1087 /* AnimatingBarGraphView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9913235F20618FF700AB1087 /* AnimatingBarGraphView.xib */; };
+		991323622062C0CD00AB1087 /* AnimatingGradientBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991323612062C0CD00AB1087 /* AnimatingGradientBarView.swift */; };
 		99B17B0820585A1C00ECCEBE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B17B0720585A1C00ECCEBE /* AppDelegate.swift */; };
 		99B17B0A20585A1C00ECCEBE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B17B0920585A1C00ECCEBE /* ViewController.swift */; };
 		99B17B0D20585A1C00ECCEBE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99B17B0B20585A1C00ECCEBE /* Main.storyboard */; };
@@ -25,6 +26,7 @@
 		99132359206156FE00AB1087 /* StandardGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardGradientView.swift; sourceTree = "<group>"; };
 		9913235D206179D900AB1087 /* AnimatingBarGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatingBarGraphView.swift; sourceTree = "<group>"; };
 		9913235F20618FF700AB1087 /* AnimatingBarGraphView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnimatingBarGraphView.xib; sourceTree = "<group>"; };
+		991323612062C0CD00AB1087 /* AnimatingGradientBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatingGradientBarView.swift; sourceTree = "<group>"; };
 		99B17B0420585A1C00ECCEBE /* AnimatingGradient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnimatingGradient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99B17B0720585A1C00ECCEBE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		99B17B0920585A1C00ECCEBE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 				99B17B0920585A1C00ECCEBE /* ViewController.swift */,
 				9913235F20618FF700AB1087 /* AnimatingBarGraphView.xib */,
 				9913235D206179D900AB1087 /* AnimatingBarGraphView.swift */,
+				991323612062C0CD00AB1087 /* AnimatingGradientBarView.swift */,
 				99D14A5020600DFD00E0965D /* AnimatingGradientCircle.swift */,
 				99132359206156FE00AB1087 /* StandardGradientView.swift */,
 				99B17B0B20585A1C00ECCEBE /* Main.storyboard */,
@@ -231,6 +234,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				99B17B0A20585A1C00ECCEBE /* ViewController.swift in Sources */,
+				991323622062C0CD00AB1087 /* AnimatingGradientBarView.swift in Sources */,
 				9913235E206179D900AB1087 /* AnimatingBarGraphView.swift in Sources */,
 				99D14A5120600DFD00E0965D /* AnimatingGradientCircle.swift in Sources */,
 				99B17B0820585A1C00ECCEBE /* AppDelegate.swift in Sources */,

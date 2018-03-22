@@ -11,9 +11,10 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var animatingBarGraph: AnimatingBarGraphView!
+    @IBOutlet weak var animatingGradientBar: AnimatingGradientBarView!
     var animatingGradientCircle: AnimatingGradientCircle?
     let gradientColors: [UIColor] = [.white, .white, .white, .white, .lightGray, .gray, .darkGray, .black]
-    let outsideColor = UIColor(red: 10/255, green: 189/255, blue: 227/255, alpha: 1.0)
+    let outsideColor = UIColor.white
 
     let viewWidth: CGFloat = 100
     let strokeWidth: CGFloat = 20
@@ -21,12 +22,15 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = outsideColor
-
-        setupAnimatingBarGraph()
+        setupBarGraph()
     }
 
-    func setupAnimatingBarGraph() {
-        animatingBarGraph.setupGradientBars()
+    func setupBarGraph() {
+        animatingBarGraph.safetyBar.setOutsideColor(UIColor.darkGray)
+        animatingBarGraph.upsideBar.setOutsideColor(UIColor.darkGray)
+        animatingBarGraph.overallBar.setOutsideColor(UIColor.darkGray)
+        animatingBarGraph.matchupBar.setOutsideColor(UIColor.darkGray)
+        animatingBarGraph.recentPerfBar.setOutsideColor(UIColor.darkGray)
     }
 
     func setupGradientCircleView() {
@@ -37,7 +41,9 @@ class ViewController: UIViewController {
 
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            animatingGradientCircle?.animateGradientView(duration: 5.0, percentageToFill: 0.78)
+            animatingBarGraph.animateRatingsBarGraph(duration: 1, ratings: Ratings(overall: 0.78, upside: 0.89, safety: 0.67, matchup: 0.35, recentPerformance: 0.57))
+
+            // animatingGradientCircle?.animateGradientView(duration: 5.0, percentageToFill: 0.78)
         }
     }
 }

@@ -19,23 +19,34 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iL3-U1-Dor" customClass="AnimatingBarGraphView" customModule="AnimatingGradient" customModuleProvider="target">
-                                <rect key="frame" x="45" y="120" width="285" height="100"/>
+                                <rect key="frame" x="35" y="120" width="305" height="110"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="3Xb-3u-Adw"/>
+                                    <constraint firstAttribute="height" constant="110" id="3Xb-3u-Adw"/>
+                                </constraints>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RyP-PS-6gU" customClass="AnimatingGradientBarView" customModule="AnimatingGradient" customModuleProvider="target">
+                                <rect key="frame" x="167.5" y="317" width="40" height="160"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="160" id="AQa-eW-GiD"/>
+                                    <constraint firstAttribute="width" constant="40" id="bLc-Wd-Wjy"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="iL3-U1-Dor" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="1Rd-qd-Bye"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="iL3-U1-Dor" secondAttribute="trailing" constant="45" id="BuW-qc-f6s"/>
-                            <constraint firstItem="iL3-U1-Dor" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="45" id="fjE-uP-Poc"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="iL3-U1-Dor" secondAttribute="trailing" constant="35" id="BuW-qc-f6s"/>
+                            <constraint firstItem="RyP-PS-6gU" firstAttribute="top" secondItem="iL3-U1-Dor" secondAttribute="bottom" constant="87" id="Ptl-Af-OxR"/>
+                            <constraint firstItem="iL3-U1-Dor" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="35" id="fjE-uP-Poc"/>
+                            <constraint firstItem="RyP-PS-6gU" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="gfE-uf-Nyq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="animatingBarGraph" destination="iL3-U1-Dor" id="Weu-SC-IiI"/>
+                        <outlet property="animatingGradientBar" destination="RyP-PS-6gU" id="bxe-y1-7Xo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
